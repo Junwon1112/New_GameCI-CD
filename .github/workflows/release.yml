@@ -44,9 +44,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          tag_name: ${{ github.ref }_{ github.sha }}_Test
-          release_name: Release ${{ github.ref }_{ github.sha }}_Test
-          body: Release ${{ github.ref }_{ github.sha }}_Test
+          tag_name: ${{ github.ref }}_${{ github.sha }}_Test
+          release_name: Release ${{ github.ref }}_${{ github.sha }}_Test
+          body: Release ${{ github.ref }}_${{ github.sha }}_Test
           draft: false
           prerelease: false
 
