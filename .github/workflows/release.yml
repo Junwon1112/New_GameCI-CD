@@ -38,9 +38,8 @@ jobs:
       - run: zip -r "build/Build-${{ matrix.targetPlatform }}.zip" "build/${{ matrix.targetPlatform }}"
           
 
-      - name: Get release name
-        id: getReleaseName
-        run: echo ::set-output name=RELEASE_NAME::${GITHUB_REF/refs\/tags\//}
+      - name: Replace part of tag
+         run: echo "custom_tag=latest-unstable" >> $GITHUB_ENV
 
       - name: Create release
         id: create_release
@@ -48,9 +47,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          tag_name: ${{ steps.getReleaseName.outputs.RELEASE_NAME }}
-          release_name: Release ${{ steps.getReleaseName.outputs.RELEASE_NAME }}
-          body: _Testing
+          tag_name: ${{ env.custom_tag }}-${{ GITHUB.RUN_NUMBER }}
+          release_name: Latest_Unstable
+          body: Keep_Testing
           draft: false
           prerelease: false
 
