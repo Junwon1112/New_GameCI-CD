@@ -39,7 +39,7 @@ jobs:
           
 
       - name: Replace part of tag
-         run: echo "custom_tag=latest-unstable" >> $GITHUB_ENV
+        run: echo "custom_tag=latest-unstable" >> $GITHUB_ENV
 
       - name: Create release
         id: create_release
