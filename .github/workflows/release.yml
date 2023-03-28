@@ -38,15 +38,19 @@ jobs:
       - run: zip -r "build/Build-${{ matrix.targetPlatform }}.zip" "build/${{ matrix.targetPlatform }}"
           
 
+      - name: Get release name
+        id: getReleaseName
+        run: echo ::set-output name=RELEASE_NAME::${GITHUB_REF/refs\/tags\//}
+
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          tag_name: ${{ github.ref }}_Test
-          release_name: Release ${{ github.ref }}_Test
-          body: Release ${{ github.ref }}_Test
+          tag_name: ${{ steps.getReleaseName.outputs.RELEASE_NAME }}
+          release_name: Release ${{ steps.getReleaseName.outputs.RELEASE_NAME }}
+          body: _Testing
           draft: false
           prerelease: false
 
@@ -56,7 +60,7 @@ jobs:
           echo "Now PWD"
           pwd
           ls -al ./build
-          echo "fuck you"
+          echo "OOOOOOOOOOOOOOOOOO"
           ls -al ./build/${{ matrix.targetPlatform }}
           echo "asdf"
           echo ${{ steps.create_release.outputs.upload_url }}
